@@ -1,12 +1,29 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "component-templates handle input",
+  "title": "component-templates invocation input",
   "type": "object",
-  "required": ["input"],
   "properties": {
-    "input": {
-      "type": "string",
-      "description": "Opaque payload forwarded to handle"
+    "config": {
+      "type": "object",
+      "description": "Template configuration (see component schema)"
+    },
+    "msg": {
+      "type": "object",
+      "description": "Channel message envelope forwarded to the template context"
+    },
+    "payload": {
+      "type": "object",
+      "description": "Incoming node payload exposed to the template context"
+    },
+    "state": {
+      "type": "object",
+      "description": "Session state map exposed to the template context"
+    },
+    "connections": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Downstream connections (not used by this component)"
     }
-  }
+  },
+  "required": ["config", "msg", "payload", "state"]
 }

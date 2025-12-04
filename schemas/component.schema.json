@@ -4,11 +4,22 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "echo_prefix": {
+    "template": {
       "type": "string",
-      "description": "Prefix prepended to every handle response",
-      "default": "component-templates",
+      "description": "Handlebars template used to render the reply"
+    },
+    "output_path": {
+      "type": "string",
+      "description": "Dot path where the rendered string is stored",
+      "default": "text",
+      "x-default-applied": true
+    },
+    "wrap": {
+      "type": "boolean",
+      "description": "Wrap output in an object when true; emit a raw string when false",
+      "default": true,
       "x-default-applied": true
     }
-  }
+  },
+  "required": ["template"]
 }

@@ -5,10 +5,14 @@
   "version": "0.1.0",
   "world": "greentic:component/component@0.4.0",
   "describe_export": "get-manifest",
-  "supports": ["messaging"],
+  "supports": [
+    "messaging"
+  ],
   "profiles": {
     "default": "stateless",
-    "supported": ["stateless"]
+    "supported": [
+      "stateless"
+    ]
   },
   "capabilities": {
     "wasi": {
@@ -40,6 +44,6 @@
     "component_wasm": "target/wasm32-wasip2/release/component_templates.wasm"
   },
   "hashes": {
-    "component_wasm": "blake3:0000000000000000000000000000000000000000000000000000000000000000"
+    "component_wasm": "blake3:23af7e6e05b65345ff5ee4c98e7fec9450045260a584eebf663424c2d7d96494"
   }
 }
