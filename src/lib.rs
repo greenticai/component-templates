@@ -459,6 +459,7 @@ mod tests {
                 attachments: Vec::new(),
                 metadata: Default::default(),
             },
+            node_id: None,
             payload,
             state,
             _connections: Vec::new(),
