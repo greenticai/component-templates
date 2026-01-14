@@ -79,30 +79,40 @@
             "questions": {
               "fields": [
                 {
-                  "id": "text",
-                  "prompt": "Handlebars template used to render the reply",
+                  "default": {
+                    "templates": {
+                      "text": "Hello {{name}}"
+                    }
+                  },
+                  "id": "config",
+                  "prompt": "Template configuration (see component schema)",
                   "type": "string"
                 },
                 {
-                  "default": "text",
-                  "id": "output_path",
-                  "prompt": "Dot path where the rendered string is stored",
+                  "id": "connections",
+                  "prompt": "Downstream connections (not used by this component)",
                   "type": "string"
                 },
                 {
-                  "id": "template",
-                  "prompt": "Handlebars template used to render the reply",
+                  "default": {},
+                  "id": "msg",
+                  "prompt": "Channel message envelope forwarded to the template context",
                   "type": "string"
                 },
                 {
-                  "default": true,
-                  "id": "wrap",
-                  "prompt": "Wrap output in an object when true; emit a raw string when false",
-                  "type": "boolean"
+                  "id": "node_id",
+                  "prompt": "Optional node id to expose state.nodes.<id> as node/node_payload in the template context",
+                  "type": "string"
                 },
                 {
-                  "id": "routing",
-                  "prompt": "Routing target (defaults to out)",
+                  "default": {},
+                  "id": "payload",
+                  "prompt": "Incoming node payload exposed to the template context",
+                  "type": "string"
+                },
+                {
+                  "id": "state",
+                  "prompt": "Runner-injected execution snapshot; includes input and previous node outputs when input is an object",
                   "type": "string"
                 }
               ]
@@ -114,7 +124,7 @@
             ]
           },
           "emit_config": {
-            "template": "{\n  \"node_id\": \"COMPONENT_STEP\",\n  \"node\": {\n    \"component.exec\": {\n      \"component\": \"ai.greentic.component-templates\",\n      \"operation\": \"text\",\n      \"input\": {\n        \"templates\": {\n          \"text\": \"{{state.text}}\",\n          \"output_path\": \"{{state.output_path}}\",\n          \"wrap\": {{state.wrap}},\n          \"routing\": \"{{state.routing}}\"\n        }\n      }\n    },\n    \"routing\": [\n      { \"to\": \"NEXT_NODE_PLACEHOLDER\" }\n    ]\n  }\n}"
+            "template": "{\n  \"node_id\": \"templates\",\n  \"node\": {\n    \"text\": {\n      \"input\": {\n        \"config\": \"{{state.config}}\",\n        \"connections\": \"{{state.connections}}\",\n        \"msg\": \"{{state.msg}}\",\n        \"node_id\": \"{{state.node_id}}\",\n        \"payload\": \"{{state.payload}}\",\n        \"state\": \"{{state.state}}\"\n      }\n    },\n    \"routing\": [\n      { \"to\": \"NEXT_NODE_PLACEHOLDER\" }\n    ]\n  }\n}"
           }
         }
       }
@@ -127,14 +137,14 @@
         "kind": "component-config",
         "nodes": {
           "emit_config": {
-            "template": "{\n  \"node_id\": \"COMPONENT_STEP\",\n  \"node\": {\n    \"component.exec\": {\n      \"component\": \"ai.greentic.component-templates\",\n      \"operation\": \"text\",\n      \"input\": {\n        \"templates\": {\n          \"text\": \"Hello {{name}}\",\n          \"routing\": \"out\"\n        }\n      }\n    },\n    \"routing\": [\n      { \"to\": \"NEXT_NODE_PLACEHOLDER\" }\n    ]\n  }\n}"
+            "template": "{\n  \"node_id\": \"templates\",\n  \"node\": {\n    \"text\": {\n      \"input\": {\n        \"config\": {\"templates\":{\"text\":\"Hello {{name}}\"}},\n        \"msg\": {},\n        \"payload\": {}\n      }\n    },\n    \"routing\": [\n      { \"to\": \"NEXT_NODE_PLACEHOLDER\" }\n    ]\n  }\n}"
           }
         }
       }
     }
   },
   "hashes": {
-    "component_wasm": "blake3:2f8fc13f771fba245dc36650908968a141c2ab5a1571701c848f08cfe1746d04"
+    "component_wasm": "blake3:6130427694a7cdb296cedc9dceb102932fdcca4f346d50cb7dca7807038b07f8"
   },
   "id": "ai.greentic.component-templates",
   "limits": {

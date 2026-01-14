@@ -6,6 +6,11 @@
     "config": {
       "type": "object",
       "description": "Template configuration (see component schema)",
+      "default": {
+        "templates": {
+          "text": "Hello {{name}}"
+        }
+      },
       "properties": {
         "templates": {
           "type": "object",
@@ -24,15 +29,21 @@
     },
     "msg": {
       "type": "object",
-      "description": "Channel message envelope forwarded to the template context"
+      "description": "Channel message envelope forwarded to the template context",
+      "default": {}
     },
     "payload": {
       "type": "object",
-      "description": "Incoming node payload exposed to the template context"
+      "description": "Incoming node payload exposed to the template context",
+      "default": {}
     },
     "state": {
       "type": "object",
-      "description": "Session state map exposed to the template context"
+      "description": "Runner-injected execution snapshot; includes input and previous node outputs when input is an object"
+    },
+    "node_id": {
+      "type": "string",
+      "description": "Optional node id to expose state.nodes.<id> as node/node_payload in the template context"
     },
     "connections": {
       "type": "array",
@@ -40,5 +51,5 @@
       "description": "Downstream connections (not used by this component)"
     }
   },
-  "required": ["config", "msg", "payload", "state"]
+  "required": ["config", "msg", "payload"]
 }

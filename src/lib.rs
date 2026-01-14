@@ -126,7 +126,10 @@ mod exports {
 struct ComponentInvocation {
     config: Value,
     msg: ChannelMessageEnvelope,
+    #[serde(default)]
+    node_id: Option<String>,
     payload: Value,
+    #[serde(default)]
     state: Value,
     #[serde(default)]
     _connections: Vec<String>,
@@ -263,6 +266,25 @@ fn build_context(invocation: &ComponentInvocation) -> Value {
         Value::String(serde_json::to_string(&invocation.state).unwrap_or_default()),
     );
 
+    if let Some(node_id) = invocation.node_id.as_deref() {
+        root.insert("node_id".to_owned(), Value::String(node_id.to_owned()));
+        if let Some(node) = resolve_state_node(&invocation.state, node_id) {
+            if let Some(payload) = node.get("payload") {
+                root.insert("node_payload".to_owned(), payload.clone());
+            }
+            root.insert("node".to_owned(), Value::Object(node));
+        }
+    }
+
+    if let Some(state_input) = resolve_state_input(&invocation.state) {
+        for (key, value) in state_input {
+            if is_reserved_key(&key) || root.contains_key(&key) {
+                continue;
+            }
+            root.insert(key.to_owned(), value.to_owned());
+        }
+    }
+
     if let Value::Object(state_map) = &invocation.state {
         for (key, value) in state_map {
             if is_reserved_key(key) || root.contains_key(key) {
@@ -273,6 +295,16 @@ fn build_context(invocation: &ComponentInvocation) -> Value {
     }
 
     Value::Object(root)
+}
+
+fn resolve_state_node(state: &Value, node_id: &str) -> Option<Map<String, Value>> {
+    let nodes = state.get("nodes")?.as_object()?;
+    let node = nodes.get(node_id)?.as_object()?;
+    Some(node.clone())
+}
+
+fn resolve_state_input(state: &Value) -> Option<Map<String, Value>> {
+    state.get("input")?.as_object().cloned()
 }
 
 fn render_template(config: &TemplateConfig, context: &Value) -> Result<String, TemplateError> {
@@ -364,6 +396,9 @@ fn is_reserved_key(key: &str) -> bool {
             | "routing"
             | "state_json"
             | "payload_json"
+            | "node"
+            | "node_id"
+            | "node_payload"
     )
 }
 
