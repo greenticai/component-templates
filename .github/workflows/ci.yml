@@ -61,7 +61,7 @@ jobs:
         env:
           IMAGE: ghcr.io/greentic-ai/components/templates
         run: |
-          VERSION=$(jq -r '.version' component.manifest.json)
+          VERSION=$(cargo metadata --no-deps --format-version=1 | jq -r '.packages[] | select(.name=="component-templates") | .version')
           oras push "${IMAGE}:latest" \
             --annotation org.opencontainers.image.source="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" \
             component.publish.manifest.json:application/vnd.greentic.component.manifest+json \
