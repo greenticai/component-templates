@@ -134,7 +134,7 @@
     }
   },
   "hashes": {
-    "component_wasm": "blake3:b5daa617c8df48ceccb083efa447355aa4c26519ddc697543c2356d97f9693bb"
+    "component_wasm": "blake3:11ff50b854352de83f8bf04851b9371c9f38201ae1a967ef57edea7a5735863c"
   },
   "id": "ai.greentic.component-templates",
   "limits": {
