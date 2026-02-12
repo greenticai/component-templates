@@ -1,6 +1,8 @@
 /target
 /.cargo
 .DS_Store
+temp_auto_push.bat
 *.swp
 *.tmp
-.greentic/
+.greentic/.gitignore
+branch_structure.json

@@ -432,7 +432,10 @@ fn output_schema_ir() -> SchemaIr {
                         (
                             "details".to_string(),
                             SchemaIr::Object {
-                                properties: BTreeMap::from([("info".to_string(), string_schema(0))]),
+                                properties: BTreeMap::from([(
+                                    "info".to_string(),
+                                    string_schema(0),
+                                )]),
                                 required: Vec::new(),
                                 additional: AdditionalProperties::Allow,
                             },
@@ -520,10 +523,7 @@ fn qa_spec_for_mode(mode: ComponentQaMode) -> ComponentQaSpec {
     );
     let question = Question {
         id: "templates.text".to_string(),
-        label: I18nText::new(
-            "templates.qa.text.label",
-            Some("Template text".to_string()),
-        ),
+        label: I18nText::new("templates.qa.text.label", Some("Template text".to_string())),
         help: None,
         error: None,
         kind: QuestionKind::Text,
@@ -596,8 +596,8 @@ fn i18n_keys() -> Vec<String> {
 fn run_component_cbor(input: Vec<u8>, _state: Vec<u8>) -> (Vec<u8>, Vec<u8>) {
     let invocation: Result<ComponentInvocation, InvokeFailure> = decode_cbor(&input);
     let result = match invocation {
-        Ok(invocation) => invoke_template_from_invocation(invocation)
-            .unwrap_or_else(|err| ComponentResult {
+        Ok(invocation) => {
+            invoke_template_from_invocation(invocation).unwrap_or_else(|err| ComponentResult {
                 payload: Value::Null,
                 state_updates: empty_object(),
                 control: None,
@@ -606,7 +606,8 @@ fn run_component_cbor(input: Vec<u8>, _state: Vec<u8>) -> (Vec<u8>, Vec<u8>) {
                     message: err.to_string(),
                     details: None,
                 }),
-            }),
+            })
+        }
         Err(err) => ComponentResult {
             payload: Value::Null,
             state_updates: empty_object(),
