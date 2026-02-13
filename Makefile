@@ -18,7 +18,12 @@ wasm:
 	fi
 
 check:
-	greentic-component doctor target/wasm32-wasip2/release/component_templates.wasm --manifest ./component.manifest.json
+	@WASM_PATH=$$(find target -type f -name component_templates.wasm ! -path '*/deps/*' | head -n1); \
+	if [ -z "$$WASM_PATH" ]; then \
+		echo "component_templates.wasm not found under target/"; \
+		exit 1; \
+	fi; \
+	greentic-component doctor "$$WASM_PATH" --manifest ./component.manifest.json
 
 lint:
 	cargo fmt --all
