@@ -12,7 +12,7 @@ flows:
 
 wasm:
 	if cargo component --version >/dev/null 2>&1; then \
-		cargo component build --release; \
+		cargo component build --release --target wasm32-wasip2; \
 	else \
 		cargo build --target wasm32-wasip2 --release; \
 	fi

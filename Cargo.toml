@@ -1,6 +1,6 @@
 [package]
 name = "component-templates"
-version = "0.1.9"
+version = "0.1.10"
 edition = "2024"
 license = "MIT"
 rust-version = "1.90"
@@ -10,6 +10,13 @@ authors = ["maarten"]
 
 [lib]
 crate-type = ["cdylib", "rlib"]
+
+[package.metadata.component]
+package = "greentic:component"
+
+[package.metadata.component.target]
+path = "wit"
+world = "component-v0-v6-v0"
 
 [dependencies]
 handlebars = "6"
