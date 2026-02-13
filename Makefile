@@ -11,7 +11,11 @@ flows:
 	greentic-component flow update
 
 wasm:
-	cargo build --target wasm32-wasip2 --release
+	if cargo component --version >/dev/null 2>&1; then \
+		cargo component build --release; \
+	else \
+		cargo build --target wasm32-wasip2 --release; \
+	fi
 
 check:
 	greentic-component doctor target/wasm32-wasip2/release/component_templates.wasm --manifest ./component.manifest.json

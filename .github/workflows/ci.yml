@@ -25,8 +25,15 @@ jobs:
         run: cargo test --workspace --all-targets
       - name: Cargo check (wasm32-wasip2)
         run: cargo check --target wasm32-wasip2
+      - name: Install cargo-component
+        run: cargo install cargo-component --locked
       - name: Build WASM (release)
-        run: cargo build --target wasm32-wasip2 --release
+        run: |
+          if cargo component --version >/dev/null 2>&1; then
+            cargo component build --release
+          else
+            cargo build --target wasm32-wasip2 --release
+          fi
       - name: Prepare publish artifacts
         if: github.ref == 'refs/heads/master'
         run: |
