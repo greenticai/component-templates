@@ -66,7 +66,7 @@
     "type": "object"
   },
   "default_operation": "text",
-  "describe_export": "get-manifest",
+  "describe_export": "describe",
   "dev_flows": {
     "custom": {
       "format": "flow-ir-json",
@@ -134,7 +134,7 @@
     }
   },
   "hashes": {
-    "component_wasm": "blake3:11ff50b854352de83f8bf04851b9371c9f38201ae1a967ef57edea7a5735863c"
+    "component_wasm": "blake3:df3d6804b67a8b020b2787781c3983815700cbabf8b364205004d5e5df4d9785"
   },
   "id": "ai.greentic.component-templates",
   "limits": {

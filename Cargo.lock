@@ -116,7 +116,7 @@ dependencies = [
 
 [[package]]
 name = "component-templates"
-version = "0.1.8"
+version = "0.1.9"
 dependencies = [
  "ciborium",
  "greentic-interfaces-guest",
@@ -124,6 +124,7 @@ dependencies = [
  "handlebars",
  "serde",
  "serde_json",
+ "wit-bindgen",
 ]
 
 [[package]]
@@ -841,6 +842,7 @@ version = "0.53.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d4453ede57df0e4dfddfe20835b934659de17abc79fe9dbdd36d28fa0ac1b959"
 dependencies = [
+ "bitflags",
  "wit-bindgen-rust-macro",
 ]
 
