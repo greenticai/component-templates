@@ -119,7 +119,6 @@ name = "component-templates"
 version = "0.1.12"
 dependencies = [
  "ciborium",
- "greentic-interfaces-guest",
  "greentic-types",
  "handlebars",
  "serde",
@@ -322,18 +321,6 @@ checksum = "85649ca51fd72272d7821adaf274ad91c288277713d9c18820d8499a7ff69e9a"
 dependencies = [
  "typenum",
  "version_check",
-]
-
-[[package]]
-name = "greentic-interfaces-guest"
-version = "0.4.107"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f3ff7be6464fca2ba0919697ef11e9be00ce0d06a6548813261051803ef88493"
-dependencies = [
- "greentic-types",
- "wit-bindgen",
- "wit-bindgen-core",
- "wit-bindgen-rust",
 ]
 
 [[package]]
